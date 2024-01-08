@@ -5,7 +5,7 @@
 | --- | --- | ---|
 | Bowtie | 1.3.1 | https://bowtie-bio.sourceforge.net/tutorial.shtml |
 | Vienna RNA | 2.6.4 | https://www.tbi.univie.ac.at/RNA/ |
-| sRNAtoolboxDB |  | https://bioinfo2.ugr.es/srnatoolbox/standalone/ |
+| sRNAtoolboxDB | not specified | https://bioinfo2.ugr.es/srnatoolbox/standalone/ |
 
 ## Processing overview with example commands
 
