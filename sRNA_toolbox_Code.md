@@ -19,9 +19,11 @@ mv genome.*.ebwt /opt/sRNAtoolboxDB/index/genome.*.ewbt
 ```
 **Parameter Definitions:**
 *  genome.fa - reference genome assembly (e.g., GRCh38.p14) from XXXXX
-*  genome - prefix that will be used for the bowtie index files
+*  genome - prefix that will be used for the bowtie index files  
+
 **Input Data:**
-*  genome.fa - reference genome assembly
+*  genome.fa - reference genome assembly  
+
 **Output Data:** 
 *  genome.*.ebwt - bowtie index files (1, 2, 3, 4, rev.1, rev.2)
 
@@ -32,8 +34,10 @@ mv genome.zip /opt/sRNAtoolboxDB/seqOBJ/genome.zip
 ```
 **Parameter Definitions:**
 *  genome.fa - reference genome assembly (e.g., GRCh38.p14) from XXXXX
+
 **Input Data:**
 *  genome.fa - reference genome assembly
+
 **Output Data:** 
 *  genome.zip - prepared genome sequences for sRNAbench
 
@@ -46,8 +50,10 @@ java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/path/to/*.fq output=/opt/
 *  *.fq - input reads
 *  adapterMinLength - the minimum length of the adapter that needs to be detected
 *  adapter=TCGTATGCCG - the adapter sequence. If this parameter is NOT given on the command line, then the input is assumed to be adapter trimmed already
+
 **Input Data:**
 *  *.fq (raw reads)
+
 **Output Data:** (within out/pre folder) 
 *  logFile.txt - Different analysis steps are logged, but additionally possible warnings and errors are written to this file.  
 *  parameters.txt - list of parameters used in the sRNAbench.jar step
@@ -66,8 +72,10 @@ java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre
 *  reads_orig.fa - Reads after the preprocessing
 *  microRNA - short species name used in miRBase (e.g., hsa, mmu), more than one species can be selected separating them by ‘:’
 *  species - the name of the bowtie index in 'index' folder
+
 **Input Data:**
 *  reads_orig.fa - Reads after the preprocessing
+
 **Output Data:** (within out/pre folder) 
 *  logFile.txt - Different analysis steps are logged, but additionally possible warnings and errors are written to this file.  
 *  parameters.txt - list of parameters used in the sRNAbench.jar step
