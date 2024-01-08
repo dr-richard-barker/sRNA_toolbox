@@ -13,10 +13,10 @@
 sRNAbench and sRNAde rely on a local database where most of the library files, genome sequences, Rscripts and Bowtie indexes need to be stored. This database needs both a bowtie index and prepared genome sequence file for the reference annotation.
 
 #### 1a. Build bowtie index of genome and add to sRNA toolbox index folder
-
+```
 bowtie-build genome.fa genome
 mv genome.*.ebwt /opt/sRNAtoolboxDB/index/genome.*.ewbt
-
+```
 **Parameter Definitions:**
 *  genome.fa - reference genome assembly (e.g., GRCh38.p14) from XXXXX
 *  genome - prefix that will be used for the bowtie index files
@@ -26,10 +26,10 @@ mv genome.*.ebwt /opt/sRNAtoolboxDB/index/genome.*.ewbt
 *  genome.*.ebwt - bowtie index files (1, 2, 3, 4, rev.1, rev.2)
 
 #### 1b. Create prepared genome sequence and add to seqOBJ folder
-
+```
 java -jar makeSeqObj.jar genome.fa
 mv genome.zip /opt/sRNAtoolboxDB/seqOBJ/genome.zip
-
+```
 **Parameter Definitions:**
 *  genome.fa - reference genome assembly (e.g., GRCh38.p14) from XXXXX
 **Input Data:**
@@ -39,9 +39,9 @@ mv genome.zip /opt/sRNAtoolboxDB/seqOBJ/genome.zip
 
 ### 2. Preprocessing and adapter removal
 May need to add the bowtie-1.3.1 folder to PATH for sRNA toolbox (i.e., export PATH=$PATH:/path/to/bowtie-1.1.1)
-
+```
 java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/path/to/*.fq output=/opt/sRNAtoolboxDB/out/pre/ adapterMinLength=6 adapter=TCGTATGCCG 
-
+```
 **Parameter Definitions:**
 *  *.fq - input reads
 *  adapterMinLength - the minimum length of the adapter that needs to be detected
@@ -59,9 +59,9 @@ java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/path/to/*.fq output=/opt/
 * stat/readLengthFull.txt -  length distribution without setting any thresholds like minimum length or minimum read count
  
 ### 3. microRNA profiling with genome mapping mode
-
+```
 java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/miR microRNA=hsa species=genome
-
+```
 **Parameter Definitions:**
 *  reads_orig.fa - Reads after the preprocessing
 *  microRNA - short species name used in miRBase (e.g., hsa, mmu), more than one species can be selected separating them by ‘:’
@@ -78,9 +78,6 @@ java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre
 * stat/readLengthAnalysis.txt -  distribution of the reads that are used for the analysis
 * stat/readLengthFull.txt -  length distribution without setting any thresholds like minimum length or minimum read count
 
-
-sRNAbench Genome Mapping Mode (Bowtie BS):
-java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/SRR950892_pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/SRR950892_miRgenome microRNA=hsa species=GRCh38_p13_mp
  
 Using Other Libraries:
 java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/SRR950892_pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/SRR343332_libs microRNA=hsa libs=hg19- tRNAs.fa plotLibs=true minRCplotLibs=100
