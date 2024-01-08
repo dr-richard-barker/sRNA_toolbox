@@ -109,8 +109,9 @@ java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre
 *  folder novel - contains the alignments to the novel pre-microRNA sequences 
   
 ### 5. Detecting and Classifying IsomiRs and IsoRNA:
+```
 java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/libs microRNA=hsa isoMiR=true
-
+```
 **Parameter Definitions:**
 *  reads_orig.fa - Reads after the preprocessing
 *  microRNA - short species name used in miRBase (e.g., hsa, mmu), more than one species can be selected separating them by ‘:’
