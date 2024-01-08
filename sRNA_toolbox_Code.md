@@ -152,7 +152,7 @@ java -jar /opt/sRNAtoolboxDB/exec/sRNAde.jar input=/opt/sRNAtoolboxDB/out/ outpu
 *  heatmap.png -  the cluster analysis and heatmap taking the top 50 microRNAs
 *  heatmap_median_normalized.png: the cluster analysis and heatmap taking the top 50 microRNAs applying median normalization
 
-### miRNAconsTarget
+### 7. Concnesus miRNA target predictions
 This program allows to calculate consensus miRNA target predictions, both in animals and plants. Must be downloaded directly from the github repository (https://github.com/bioinfoUGR/sRNAtoolbox/tree/master/exec)
 ```
 java -jar miRNAconsTargets.jar
