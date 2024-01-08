@@ -108,12 +108,6 @@ java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre
 *  novel_mature.fa and novel_hairpin.fa - mature and pre-microRNA sequences of novel microRNAs
 *  folder novel - contains the alignments to the novel pre-microRNA sequences 
   
-Using Other Libraries:
-java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/libs microRNA=hsa libs=hg19- tRNAs.fa plotLibs=true minRCplotLibs=100
- 
-Visualizing Alignments:
-java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/libs microRNA=hsa libs=GRCh38_p13_mp tRNAs.fa plotLibs=true
- 
 ### 5. Detecting and Classifying IsomiRs and IsoRNA:
 java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/libs microRNA=hsa isoMiR=true
 
