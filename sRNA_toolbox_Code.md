@@ -59,7 +59,7 @@ java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/path/to/*.fq output=/opt/
 *  parameters.txt - list of parameters used in the sRNAbench.jar step
 *  results.txt - The results of the different steps, i.e. preprocessing
 *  reads_orig.fa - Reads after the preprocessing, i.e. after adapter trimming, length and quality filtering (default min PhredScore 20) and collapsing
-*  reads.fa - Reads that have not been mapped to the miRBase reference (sRNAbenchDB comes preloaded with MirBase hairpin.fa and mature.fa)******
+*  reads.fa - Reads that have not been mapped to the miRBase reference, this file is automatically created even though this prepocessing step did not include mapping reads, so it is technically the same as reads_orig.fa
 *  short_reads.txt - the reads filtered out due to minReadLength parameter (the default is 15nt)
 * stat/readLengthAnalysis.txt -  distribution of the reads that are used for the analysis
 * stat/readLengthFull.txt -  length distribution without setting any thresholds like minimum length or minimum read count
@@ -109,15 +109,33 @@ java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre
 *  folder novel - contains the alignments to the novel pre-microRNA sequences 
   
 Using Other Libraries:
-java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/SRR950892_pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/SRR343332_libs microRNA=hsa libs=hg19- tRNAs.fa plotLibs=true minRCplotLibs=100
+java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/libs microRNA=hsa libs=hg19- tRNAs.fa plotLibs=true minRCplotLibs=100
  
 Visualizing Alignments:
-java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/SRR950892_pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/SRR950892_libs microRNA=hsa libs=GRCh38_p13_mp tRNAs.fa plotLibs=true
+java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/libs microRNA=hsa libs=GRCh38_p13_mp tRNAs.fa plotLibs=true
  
-Detecting and Classifying IsomiRs and IsoRNA:
-java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/SRR950892_pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/SRR950892_libs microRNA=hsa isoMiR=true
+### 5. Detecting and Classifying IsomiRs and IsoRNA:
+java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/libs microRNA=hsa isoMiR=true
+
+**Parameter Definitions:**
+*  reads_orig.fa - Reads after the preprocessing
+*  microRNA - short species name used in miRBase (e.g., hsa, mmu), more than one species can be selected separating them by ‘:’
+*  isoMiR=true - detects IsomiRs
+
+**Input Data:**
+*  reads_orig.fa - Reads after the preprocessing
+
+**Output Data:** (within out/prediction folder) 
+*  logFile.txt - Different analysis steps are logged, but additionally possible warnings and errors are written to this file.  
+*  parameters.txt - list of parameters used in the sRNAbench.jar step
+*  results.txt - The results of the different steps, i.e. preprocessing
+*  mature.iso: isomiR information for each mature microRNA.
+*  microRNAannotation: isomiR annotation at a read level.
+*  isomiR_summary.txt (in stat folder): The number of reads found for all isomiR classes for each of the mature microRNAs.
+*  isomiR_NTA.txt and isomiR_otherVariants.txt (in 'stat' folder): isomiR summary of the sample.
+*  isomiR_lenNTA.txt (in ‘stat’ folder): summary of non-templated additions as a function of 'addition length'
  
-### Differential expression
+### 6. Differential expression
 ```
 java -jar /opt/sRNAtoolboxDB/exec/sRNAde.jar input=/opt/sRNAtoolboxDB/out/ output=/path/to/DE/out/ grpString=<the names of the input samples> diffExpr=true
 ```
@@ -139,9 +157,9 @@ java -jar /opt/sRNAtoolboxDB/exec/sRNAde.jar input=/opt/sRNAtoolboxDB/out/ outpu
 *  heatmap.png -  the cluster analysis and heatmap taking the top 50 microRNAs
 *  heatmap_median_normalized.png: the cluster analysis and heatmap taking the top 50 microRNAs applying median normalization
 
-
-miRNAconsTarget:
-Launch miRNAconstargets for Animals:
+### miRNAconsTarget
+This program allows to calculate consensus miRNA target predictions, both in animals and plants. Must be downloaded directly from the github repository (https://github.com/bioinfoUGR/sRNAtoolbox/tree/master/exec)
+```
 java -jar miRNAconsTargets.jar
-Launch miRNAconstargets for Plants:
 java -jar miRNAconsTargets_plants.py
+```
