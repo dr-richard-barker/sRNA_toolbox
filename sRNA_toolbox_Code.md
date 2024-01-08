@@ -76,23 +76,40 @@ java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre
 **Input Data:**
 *  reads_orig.fa - Reads after the preprocessing
 
-**Output Data:** (within out/pre folder) 
+**Output Data:** (within out/miR folder) 
 *  logFile.txt - Different analysis steps are logged, but additionally possible warnings and errors are written to this file.  
 *  parameters.txt - list of parameters used in the sRNAbench.jar step
 *  results.txt - The results of the different steps, i.e. preprocessing
-*  reads_orig.fa - Reads after the preprocessing, i.e. after adapter trimming, length and quality filtering (default min PhredScore 20) and collapsing
-*  reads.fa - Reads that have not been mapped to the mirBase reference (sRNAbenchDB comes preloaded with MirBase hairpin.fa and mature.fa)******
-*  short_reads.txt - the reads filtered out due to minReadLength parameter (the default is 15nt)
-* stat/readLengthAnalysis.txt -  distribution of the reads that are used for the analysis
-* stat/readLengthFull.txt -  length distribution without setting any thresholds like minimum length or minimum read count
+*  genomeDistribution.txt - the number of reads mapped to the different species specified in microRNA parameter
+*  genomeDistribution folder -  contains the reads assigned to the different assemblies in fasta format and the corresponding read length distribution.
+*  genomeMappedReads.fa - the reads mapped to any of the genome assemblies (only non-redundant reads are included)
+*  genomeMappedReads.readLen - the read length distribution of genome mapped reads
 
- 
+### 4. Prediction of Novel microRNAs
+```
+java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/prediction microRNA=hsa species=genome predict=true minReadLength=19 maxReadLength=25
+```
+**Parameter Definitions:**
+*  reads_orig.fa - Reads after the preprocessing
+*  microRNA - short species name used in miRBase (e.g., hsa, mmu), more than one species can be selected separating them by ‘:’
+*  species - the name of the bowtie index in 'index' folder
+*  predict=true - calls the prediction of novel microRNAs function, default assumes animals for plants kingdom=plants should be included
+*  minReadLength - minimum read length in nt
+*  maxReadLength - maximum read length in nt
+
+**Input Data:**
+*  reads_orig.fa - Reads after the preprocessing
+
+**Output Data:** (within out/miR folder) 
+*  logFile.txt - Different analysis steps are logged, but additionally possible warnings and errors are written to this file.  
+*  parameters.txt - list of parameters used in the sRNAbench.jar step
+*  results.txt - The results of the different steps, i.e. preprocessing
+*  novel.txt - Summary of novel microRNAs
+*  novel_mature.fa and novel_hairpin.fa - mature and pre-microRNA sequences of novel microRNAs
+*  folder novel - contains the alignments to the novel pre-microRNA sequences 
+  
 Using Other Libraries:
 java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/SRR950892_pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/SRR343332_libs microRNA=hsa libs=hg19- tRNAs.fa plotLibs=true minRCplotLibs=100
- 
-Prediction of Novel microRNAs:
-java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/SRR950892_pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/SRR950892_prediction microRNA=hsa species=GRCh38_p13_mp
- predict=true minReadLength=19 maxReadLength=25
  
 Visualizing Alignments:
 java -jar /opt/sRNAtoolboxDB/exec/sRNAbench.jar input=/opt/sRNAtoolboxDB/out/SRR950892_pre/reads_orig.fa output=/opt/sRNAtoolboxDB/out/SRR950892_libs microRNA=hsa libs=GRCh38_p13_mp tRNAs.fa plotLibs=true
